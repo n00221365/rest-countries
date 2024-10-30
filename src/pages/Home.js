@@ -43,7 +43,7 @@ const Home = () => {
     });
 
     return (
-        <div >
+        <div style={{backgroundColor: "#F5F5DD"}}>
             <input placeholder='Search' onChange={handleChange}></input>
             <Row md={3} xs={1}>
                 {countryCards}
