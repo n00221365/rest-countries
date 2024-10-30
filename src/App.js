@@ -6,6 +6,20 @@ import Navbar from "./components/Navbar";
 //import pages
 import Home from './pages/Home';
 import SingleCountry from './pages/SingleCountry';
+import Africa from './pages/Africa';
+import Antartica from './pages/Antartica';
+import Asia from './pages/Asia';
+import Australia from './pages/Australia';
+import Europe from './pages/Europe';
+import NAmerica from './pages/NAmerica';
+import SAmerica from './pages/SAmerica';
+
+
+
+
+
+
+
 
 import { Container } from 'react-bootstrap';
 
@@ -20,6 +34,15 @@ const App = () => {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/country/:name' element={<SingleCountry />} />
+                <Route path='/country/:region' element={<Europe />} />
+                <Route path='/country/:region' element={<Africa />} />
+                <Route path='/country/:region' element={<Asia />} />
+                <Route path='/country/:region' element={<NAmerica />} />
+                <Route path='/country/:region' element={<SAmerica />} />
+                <Route path='/country/:region' element={<Australia />} />
+                <Route path='/country/:region' element={<Antartica />} />
+
+
             </Routes>
         </Router>
         </Container>
