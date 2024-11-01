@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Row, Col, Image, Card } from "react-bootstrap";
 
+// an imported font used for the country name to make it stand out from the rest of the page
 <style>
   @import
   url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
@@ -21,6 +22,9 @@ const SingleCountry = () => {
 
   useEffect(() => {
     axios
+
+                // retrieves all countries from the countries json file
+
       .get(`https://restcountries.com/v3.1/name/${name}?fullText=true`)
       .then((res) => {
         console.log("Response:", res.data[0]);
@@ -30,9 +34,14 @@ const SingleCountry = () => {
 
         axios
           .get(
+
+                            // retrieves all countries from the weather json file
+
             `https://api.openweathermap.org/data/2.5/weather?lat=${coords[0]}&lon=${coords[1]}&appid=6e15355cf289fb745acea896b5cb501c`
           )
           .then((weatherData) => {
+
+            //pulls each of the respective props from the API
             console.log("weatherdata:", weatherData.data);
             setWeather(weatherData.data);
             setKelvin(weatherData.data.main.temp);
@@ -40,6 +49,8 @@ const SingleCountry = () => {
             setSunset(weatherData.data.sys.sunset);
           });
       })
+
+      // concole logs any errors that appear in the code
       .catch((e) => {
         console.error(e);
       });
@@ -47,6 +58,8 @@ const SingleCountry = () => {
   // ------Maths to convert the formats from the api to normal---
 
   //converts kelvin to celsius for temperature
+
+  // converts kelvin to celsius
   const actualTemperature = Math.round(kelvin - 273.15);
 
   //converts unix time stamp to standard 24 hour clock for sunrise and sunset
@@ -55,22 +68,27 @@ const SingleCountry = () => {
 
   //extracts the hours and minutes from the converted time
   const sunriseHours = String(sunriseConversion.getHours());
+
+  //in the case of minutes being a single digit number, padStart adds a 0 to make it look more neat, eg 9:02 as opposed to 9:2
   const sunriseMinutes = String(sunriseConversion.getMinutes()).padStart(
     2,
     "0"
   );
 
+  // concatonates the hours and minutes into one variable
   const actualSunrise = `${sunriseHours}:${sunriseMinutes}`;
 
-  //appends "AM" or "PM" to the end of the p tag depending on the time
+  //adds AM or PM to the end of the time depending on whether it is before noon or not
   const AmvsPmSunrise = sunriseHours >= 12 ? "PM" : "AM";
 
-  //extracts the hours and minutes from the converted time
+  //extracts the hours and minutes from the converted time, leaving out unnecessary info such as the month, week etc
   const sunsetHours = String(sunsetConversion.getHours());
   const sunsetMinutes = String(sunsetConversion.getMinutes()).padStart(2, "0");
+
+    // concatonates the hours and minutes into one variable
   const actualSunset = `${sunsetHours}:${sunsetMinutes}`;
 
-  //appends "AM" or "PM" to the end of the p tag depending on the time
+  //adds AM or PM to the end of the time depending on whether it is before noon or not
   const AmvsPmSunset = sunsetHours >= 12 ? "PM" : "AM";
 
   if (!country) {
@@ -91,8 +109,8 @@ const SingleCountry = () => {
         }}
       >
         <div>
-          <div style={{ position: "relative", height: "auto" }}>
             <Row>
+              {/* Styling for flag image, including adding a border and small amount of padding, then adding the flag itself */}
               <Col class="padding-left:10px">
                 <div style={{ paddingLeft: 60 }}>
                     <Card border="dark" style={{borderWidth: 3,}}>
@@ -102,7 +120,7 @@ const SingleCountry = () => {
                   />
                   </Card>
                 </div>
-
+                {/*Styling for the Country name, using the imported google font*/}
                 <p 
                   style={{
                     paddingLeft: 125,
@@ -114,6 +132,8 @@ const SingleCountry = () => {
                   {country.name.common}
                 </p>
               </Col>
+
+              {/* Styling for the background image (country crest) */}
               <Col>
                 <Card
                   border="dark"
@@ -125,6 +145,9 @@ const SingleCountry = () => {
                 >
                   <div style={{ backgroundColor: "#F5F5DD" }}>
                     <div
+
+                    // styling includes getting the image, making sure the position will not change, making sure the image will not loop,
+                    //  containing the image to a certain size and adding background colour and opacity to make it blend in more
                       style={{
                         backgroundImage: `url(${country.coatOfArms.png})`,
                         position: "absolute",
@@ -139,6 +162,7 @@ const SingleCountry = () => {
                       }}
                     />
 
+                      {/* The rest of the file is calling all the elements from the API's and displaying them */}
                     <p>
                       <h4>Official name: </h4>
                       {country.name.official}
@@ -196,7 +220,6 @@ const SingleCountry = () => {
                 </Card>
               </Col>
             </Row>
-          </div>
         </div>
       </div>
     </>

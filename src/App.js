@@ -32,6 +32,7 @@ const App = () => {
         <Router>
             <Navbar />
             <Routes>
+                {/* Non functional links to the country pages */}
                 <Route path='/' element={<Home />} />
                 <Route path='/country/:name' element={<SingleCountry />} />
                 <Route path='/country/:region' element={<Europe />} />
