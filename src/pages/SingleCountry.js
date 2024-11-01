@@ -3,11 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Row, Col, Image, Card } from "react-bootstrap";
 
-// an imported font used for the country name to make it stand out from the rest of the page
-<style>
-  @import
-  url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-</style>;
+
 
 const SingleCountry = () => {
   const { name } = useParams();
@@ -120,12 +116,11 @@ const SingleCountry = () => {
                   />
                   </Card>
                 </div>
-                {/*Styling for the Country name, using the imported google font*/}
+                {/*Styling for the Country name*/}
                 <p 
                   style={{
                     paddingLeft: 125,
                     paddingTop: 25,
-                    fontFamily: "Playfair Display",
                     fontSize: 70,
                   }}
                 >
